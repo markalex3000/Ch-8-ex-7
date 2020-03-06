@@ -18,7 +18,9 @@ global variables
 */
 
 vector<string> name;
+vector<string> sorted_name;
 vector<double> age;
+vector<double> sorted_age;
 int num_names{ 0 };
 const int number_of_names_to_get{ 5 };
 
@@ -28,6 +30,8 @@ functions declarations
 int get_names(vector<string>& vn);
 int get_ages(vector<double>& va);
 void print_names_ages(vector<string>& vn, vector<double>& va);
+void sort_both(vector<string>& vn, vector<string>& svn, vector<double>& va, vector<double>& sa);
+
 
 /*
 main
@@ -44,6 +48,12 @@ int main() {
 	cout << "Now we'll output the name age pairs..." << '\n';
 
 	print_names_ages(name, age);
+
+	cout << "Now we'll output the sorted name age pairs..." << '\n';
+
+	sort_both(name, sorted_name, age, sorted_age);
+
+	print_names_ages(sorted_name, sorted_age);
 
 	keep_window_open();
 }
@@ -80,4 +90,24 @@ void print_names_ages(vector<string>& vn, vector<double>& va) {
 		cout << s << " is " << *age_itr << '\n';
 		age_itr++;
 	}
+}
+
+void sort_both(vector<string>& vn, vector<string>& svn, vector<double>& va, vector<double>& sa) {
+	
+	int va_index{ 0 };
+	int sa_index{ 0 };
+
+	svn = vn;
+	sa = va;
+
+	sort(svn.begin(), svn.end());
+	for (string s : svn) {
+		va_index = 0;
+		for (auto vn_itr = vn.begin(); vn_itr < vn.end(); vn_itr++) {
+		if (s == *vn_itr) sa.at(sa_index) = va.at(va_index);
+		va_index++;
+		}
+		sa_index++;
+	}
+
 }
